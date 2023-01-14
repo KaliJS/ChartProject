@@ -253,7 +253,7 @@ const options = {
     height: 350,
   },
   title: {
-    text: "CandleStick Chart",
+    text: "Euro 10 year govt. bond",
     align: "left",
   },
   xaxis: {
@@ -265,10 +265,11 @@ const options = {
     },
   },
 };
+
 const ApexChart = () => {
   return (
     <div id="chart">
-      <ReactApexChart options={options} series={series} type="candlestick" height={350} />
+      <ReactApexChart options={options} series={series} type="candlestick" height={550} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
-import { format } from 'date-fns';
-import { v4 as uuid } from 'uuid';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import { format } from "date-fns";
+import { v4 as uuid } from "uuid";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Box,
   Button,
@@ -12,141 +12,121 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
-  Tooltip
-} from '@mui/material';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { SeverityPill } from '../severity-pill';
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import { SeverityPill } from "../severity-pill";
 
 const orders = [
   {
     id: uuid(),
-    ref: 'CDD1049',
-    amount: 30.5,
-    customer: {
-      name: 'Ekaterina Tankova'
-    },
-    createdAt: 1555016400000,
-    status: 'pending'
+    ref: "NIFTY",
+    amount: 3034.5,
+    chg: 34.5,
+    chgp: 0.4,
+    color: "success",
   },
   {
     id: uuid(),
-    ref: 'CDD1048',
-    amount: 25.1,
-    customer: {
-      name: 'Cao Yu'
-    },
-    createdAt: 1555016400000,
-    status: 'delivered'
+    ref: "BANK",
+    amount: 2534.1,
+    chg: 314.5,
+    chgp: 1.5,
+    color: "warning",
   },
   {
     id: uuid(),
-    ref: 'CDD1047',
-    amount: 10.99,
-    customer: {
-      name: 'Alexa Richardson'
-    },
-    createdAt: 1554930000000,
-    status: 'refunded'
+    ref: "SENSEX",
+    amount: 1034.99,
+    chg: 4.5,
+    chgp: 0.1,
+    color: "success",
   },
   {
     id: uuid(),
-    ref: 'CDD1046',
-    amount: 96.43,
-    customer: {
-      name: 'Anje Keizer'
-    },
-    createdAt: 1554757200000,
-    status: 'pending'
+    ref: "SPX",
+    amount: 9634.43,
+    chg: 134.5,
+    chgp: 0.9,
+    color: "error",
   },
   {
     id: uuid(),
-    ref: 'CDD1045',
-    amount: 32.54,
-    customer: {
-      name: 'Clarke Gillebert'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
+    ref: "CNXIT",
+    amount: 3234.54,
+    chg: 224.5,
+    chgp: 2.1,
+    color: "warning",
   },
   {
     id: uuid(),
-    ref: 'CDD1044',
-    amount: 16.76,
-    customer: {
-      name: 'Adam Denisov'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  }
+    ref: "BANK",
+    amount: 2534.1,
+    chg: 314.5,
+    chgp: 1.5,
+    color: "warning",
+  },
+  {
+    id: uuid(),
+    ref: "SENSEX",
+    amount: 1034.99,
+    chg: 4.5,
+    chgp: 0.1,
+    color: "success",
+  },
+  {
+    id: uuid(),
+    ref: "SPX",
+    amount: 9634.43,
+    chg: 134.5,
+    chgp: 0.9,
+    color: "error",
+  },
+  {
+    id: uuid(),
+    ref: "CNXIT",
+    amount: 3234.54,
+    chg: 224.5,
+    chgp: 2.1,
+    color: "warning",
+  },
 ];
 
-export const LatestOrders = (props) => (
+const LatestOrders = (props) => (
   <Card {...props}>
-    <CardHeader title="Latest Orders" />
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
+    <Typography variant="h6" sx={{ p: 2 }}>
+      Watchlists
+    </Typography>
+    <Box>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Symbol</TableCell>
+            <TableCell>Last</TableCell>
+            <TableCell>Chg</TableCell>
+            <TableCell>Chg%</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {orders.map((order, i) => (
+            <TableRow hover key={i}>
+              <TableCell>{order.ref}</TableCell>
+              <TableCell>{order.amount}</TableCell>
               <TableCell>
-                Order Ref
+                <SeverityPill color={order.color}>{order.chg}</SeverityPill>
               </TableCell>
-              <TableCell>
-                Customer
-              </TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableSortLabel
-                    active
-                    direction="desc"
-                  >
-                    Date
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell>
-                Status
-              </TableCell>
+              <TableCell>{order.chgp}%</TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {orders.map((order) => (
-              <TableRow
-                hover
-                key={order.id}
-              >
-                <TableCell>
-                  {order.ref}
-                </TableCell>
-                <TableCell>
-                  {order.customer.name}
-                </TableCell>
-                <TableCell>
-                  {format(order.createdAt, 'dd/MM/yyyy')}
-                </TableCell>
-                <TableCell>
-                  <SeverityPill
-                    color={(order.status === 'delivered' && 'success')
-                    || (order.status === 'refunded' && 'error')
-                    || 'warning'}
-                  >
-                    {order.status}
-                  </SeverityPill>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
+          ))}
+        </TableBody>
+      </Table>
+    </Box>
     <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
+        display: "flex",
+        justifyContent: "flex-end",
+        p: 2,
       }}
     >
       <Button
@@ -160,3 +140,5 @@ export const LatestOrders = (props) => (
     </Box>
   </Card>
 );
+
+export default LatestOrders;
